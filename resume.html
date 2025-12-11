@@ -1,0 +1,106 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dan Smith — Resume</title>
+    <style>
+      html,body { height:100%; margin:0; }
+      body { background:#fff; }
+
+      /* viewer container fills viewport */
+      #viewerContainer { position:fixed; inset:0; overflow:auto; background:#efefef; display:flex; align-items:flex-start; justify-content:center; padding:18px 12px; }
+      .pageCanvas { display:block; margin:12px 0; box-shadow:0 6px 18px rgba(0,0,0,0.08); background:#fff; }
+
+      /* small download button in the top-right */
+      .download-btn {
+        position:fixed; top:12px; right:12px; z-index:1000;
+        display:inline-flex; align-items:center; gap:8px;
+        padding:8px 10px; font-weight:700; font-size:13px;
+        background:#fff; color:#000; border:1px solid rgba(0,0,0,0.9);
+        text-decoration:none; border-radius:6px; box-shadow:0 6px 18px rgba(0,0,0,0.06);
+      }
+      .download-btn small { font-weight:600; opacity:0.85; }
+
+      /* loading center message */
+      #loading { position:fixed; left:50%; top:50%; transform:translate(-50%,-50%); z-index:900; background:rgba(255,255,255,0.9); padding:12px 16px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.08); font-weight:700; }
+
+      @media (max-width:420px) {
+        .download-btn { padding:6px 8px; font-size:12px; top:8px; right:8px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <a class="download-btn" href="resume.pdf" download aria-label="Download resume PDF">Download <small>PDF</small></a>
+
+    <div id="loading">Loading resume…</div>
+
+    <div id="viewerContainer" aria-live="polite" aria-busy="true"></div>
+
+    <!-- PDF.js from CDN (2.x branch) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>
+      (function(){
+        const url = 'resume.pdf';
+        const viewer = document.getElementById('viewerContainer');
+        const loadingEl = document.getElementById('loading');
+
+        if (!window.pdfjsLib) {
+          loadingEl.textContent = 'PDF.js failed to load. Click the Download button to get the file.';
+          return;
+        }
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+        // load the PDF
+        const loadingTask = pdfjsLib.getDocument(url);
+
+        loadingTask.promise.then(function(pdf) {
+          // remove loading text but keep aria-live until render done
+          loadingEl.textContent = '';
+
+          // render each page sequentially
+          const renderPage = (pageNum) => {
+            return pdf.getPage(pageNum).then(function(page) {
+              // compute scale so page fits inside viewport width (minus padding)
+              const containerWidth = Math.max(document.documentElement.clientWidth - 48, 300);
+              const unscaledViewport = page.getViewport({ scale: 1 });
+              const scale = (containerWidth) / unscaledViewport.width;
+              const viewport = page.getViewport({ scale: scale });
+
+              const canvas = document.createElement('canvas');
+              canvas.className = 'pageCanvas';
+              canvas.width = Math.floor(viewport.width);
+              canvas.height = Math.floor(viewport.height);
+              const ctx = canvas.getContext('2d');
+
+              // render into canvas
+              const renderContext = { canvasContext: ctx, viewport: viewport };
+              viewer.appendChild(canvas);
+              return page.render(renderContext).promise;
+            });
+          };
+
+          // sequentially render pages to keep memory usage reasonable
+          let sequence = Promise.resolve();
+          for (let i = 1; i <= pdf.numPages; i++) {
+            sequence = sequence.then(() => renderPage(i));
+          }
+
+          sequence.then(() => {
+            viewer.setAttribute('aria-busy', 'false');
+            if (loadingEl) loadingEl.remove();
+          }).catch((err) => {
+            console.error('Error rendering pages', err);
+            if (loadingEl) loadingEl.textContent = 'Error rendering resume. Use the Download button.';
+          });
+        }).catch(function(err){
+          console.error('Error loading PDF', err);
+          loadingEl.textContent = 'Could not load resume.pdf. Click Download to get the file.';
+        });
+      })();
+    </script>
+  </body>
+</html>

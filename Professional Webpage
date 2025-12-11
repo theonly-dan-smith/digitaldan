@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Virtual Dan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Have a short conversation with Virtual Dan, an AI-powered voice version trained on Dan's experience in product, GTM, and customer strategy." />
+  <style>
+    :root {
+      --orange: #F36B21;
+      --deep-orange: #D94A2B;
+      --pink: #F4B7C3;
+      --yellow: #F6C944;
+      --teal: #2CA7A0;
+      --cyan: #63C7DA;
+      --ultra: #0057A4;
+      --dark-blue-green: #0E4D49;
+      --black: #000000;
+      --off-white: #F8F7F2;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: var(--off-white);
+      color: var(--black);
+      line-height: 1.6;
+      letter-spacing: 0.01em;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 36px 24px 64px;
+      display: grid;
+      gap: 32px;
+    }
+
+    header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .wordmark {
+      font-size: 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .header-meta {
+      font-size: 12px;
+      text-align: right;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      main { grid-template-columns: 1fr; }
+      header { flex-direction: column; align-items: flex-start; }
+      .header-meta { text-align: left; }
+    }
+
+    .hero-heading {
+      font-size: clamp(30px, 4vw, 40px);
+      font-weight: 800;
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .hero-heading span {
+      background: linear-gradient(90deg, var(--ultra), var(--orange));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      margin: 0 0 16px;
+      max-width: 620px;
+    }
+
+    .hero-meta {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 22px;
+    }
+
+    .primary-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border: 2px solid var(--black);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      transition: transform 0.08s ease-out;
+    }
+
+    .btn:active { transform: translateY(1px); }
+
+    .btn-primary { background: var(--orange); color: var(--black); }
+    .btn-secondary { background: var(--off-white); color: var(--black); }
+
+    .hero-footnote {
+      font-size: 12px;
+      max-width: 520px;
+      letter-spacing: 0.02em;
+    }
+
+    .geo-panel {
+      border: 2px solid var(--black);
+      background: #fff;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      align-items: center;
+    }
+
+    .geo-panel .circle {
+      width: 90%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--ultra);
+      justify-self: center;
+    }
+
+    .geo-panel .bar { height: 14px; background: var(--orange); }
+
+    .geo-panel .stack { display: grid; gap: 6px; }
+    .geo-panel .stack .bar { height: 10px; }
+    .geo-panel .stack .bar:nth-child(1) { background: var(--teal); }
+    .geo-panel .stack .bar:nth-child(2) { background: var(--pink); }
+    .geo-panel .stack .bar:nth-child(3) { background: var(--yellow); }
+
+    .geo-panel .column { display: grid; gap: 8px; }
+    .geo-panel .column .block { height: 24px; background: var(--deep-orange); }
+    .geo-panel .column .block:nth-child(2) { background: var(--cyan); }
+
+    .meta-card {
+      border: 2px solid var(--black);
+      padding: 18px;
+      background: #fff;
+      display: grid;
+      gap: 10px;
+    }
+
+    .meta-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    .meta-list {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 6px;
+      font-size: 14px;
+    }
+
+    .agent-section {
+      border: 2px solid var(--black);
+      padding: 22px 20px;
+      background: #fff;
+      display: grid;
+      gap: 10px;
+    }
+
+    .agent-heading {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .agent-caption { margin: 0; font-size: 13px; max-width: 580px; }
+
+    .agent-embed-wrapper {
+      border: 1px solid var(--black);
+      padding: 14px;
+      min-height: 160px;
+      background: linear-gradient(135deg, var(--off-white), #ffffff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    footer {
+      border-top: 2px solid var(--black);
+      padding-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+    }
+
+    .social-links {
+      display: flex;
+      width: 100%;
+      justify-content: space-evenly;
+      gap: 12px;
+    }
+
+    .social-links a {
+      text-decoration: none;
+      color: var(--black);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 2px;
+    }
+
+    .social-links a:hover { border-color: var(--black); }
+
+    .disclosure {
+      width: 100%;
+      max-width: 720px;
+      margin: 8px auto 0;
+      text-align: center;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="wordmark">Dan Smith - For your Consideration</div>
+      <div class="header-meta">AI VOICE CLONE • Resume • About </div>
+    </header>
+
+    <main>
+      <section>
+        <h1 class="hero-heading">Interview an AI <span>voice version of Dan</span>.</h1>
+        <p class="hero-subtitle">
+          Use the floating widget below to chat with my digital clone about my work in customer success, digital marketing, or my sabbatical.
+        </p>
+       
+        <div class="primary-actions">
+          <a href="resume.html" class="btn btn-primary">See my resume</a>
+          <a href="mailto:dsmith882@gmail.com" class="btn btn-secondary">Send me an email</a>
+        </div>
+
+      </section>
+
+    <main>
+      <section class="meta-card">
+        <div class="meta-label">Suggested topics for our Chat</div>
+        <ul class="meta-list">
+          <li>How I built the scaled customer success program at Dovetail</li>
+          <li>My work renegotiating contracts at scale</li>
+          <li>How I developed a pricing strategy for sports teams selling their social media assets</li>
+          <li>My Thru-Hike of the Appalachain Trail</li>
+        </ul>
+      </section>
+      
+<aside>
+        <div class="geo-panel" aria-hidden="true">
+          <div class="circle"></div>
+          <div class="bar"></div>
+          <div class="stack">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+          <div class="column">
+            <div class="block"></div>
+            <div class="block"></div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+        <elevenlabs-convai agent-id="agent_0701kc52rnwyfcjtg4nxnyvctdbt"></elevenlabs-convai>
+        <script src="https://unpkg.com/@elevenlabs/convai-widget-embed@beta" async type="text/javascript"></script>
+      </div>
+    </section>
+
+    <footer id="social">
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/danhsmith/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.goodreads.com/user/show/109297588-dan-smith" target="_blank" rel="noopener noreferrer">Goodreads</a>
+        <a href="mailto:dsmith882@gmail.com">Email</a>
+      </div>
+      <div class="disclosure">
+        This page is for hosting an experimental voice agent I'm working on. I've done my best to prompt the AI for accuracy, but don't go quoting my virtual twin here!
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
