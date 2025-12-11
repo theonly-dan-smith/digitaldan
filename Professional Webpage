@@ -133,6 +133,7 @@
     }
 
     .geo-panel {
+      margin-top: 18px;
       border: 2px solid var(--black);
       background: #fff;
       padding: 18px;
@@ -264,7 +265,7 @@
       <section>
         <h1 class="hero-heading">Interview an AI <span>voice version of Dan</span>.</h1>
         <p class="hero-subtitle">
-          Use the floating widget below to chat with my digital clone about my work in customer success, digital marketing, or my sabbatical.
+          Use the floating widget below to chat with my digital clone. It's loaded up with a few stories about my career and sabbatical.
         </p>
        
         <div class="primary-actions">
@@ -274,18 +275,17 @@
 
       </section>
 
-    <main>
-      <section class="meta-card">
-        <div class="meta-label">Suggested topics for our Chat</div>
-        <ul class="meta-list">
-          <li>How I built the scaled customer success program at Dovetail</li>
-          <li>My work renegotiating contracts at scale</li>
-          <li>How I developed a pricing strategy for sports teams selling their social media assets</li>
-          <li>My Thru-Hike of the Appalachain Trail</li>
-        </ul>
-      </section>
-      
-<aside>
+      <aside>
+        <section class="meta-card">
+          <div class="meta-label">Some topics for our Chat:</div>
+          <ul class="meta-list">
+            <li>How I built the scaled customer success program at Dovetail</li>
+            <li>My work renegotiating contracts at scale</li>
+            <li>How I developed a pricing strategy for sports teams selling their social media assets</li>
+            <li>My Thru-Hike of the Appalachain Trail</li>
+          </ul>
+        </section>
+
         <div class="geo-panel" aria-hidden="true">
           <div class="circle"></div>
           <div class="bar"></div>
@@ -302,10 +302,8 @@
       </aside>
     </main>
 
-        <elevenlabs-convai agent-id="agent_0701kc52rnwyfcjtg4nxnyvctdbt"></elevenlabs-convai>
-        <script src="https://unpkg.com/@elevenlabs/convai-widget-embed@beta" async type="text/javascript"></script>
-      </div>
-    </section>
+    <elevenlabs-convai agent-id="agent_0701kc52rnwyfcjtg4nxnyvctdbt"></elevenlabs-convai>
+    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 
     <footer id="social">
       <div class="social-links">
