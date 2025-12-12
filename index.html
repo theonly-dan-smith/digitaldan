@@ -5,8 +5,6 @@
   <title>Virtual Dan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Have a short conversation with Virtual Dan, an AI-powered voice version trained on Dan's experience in product, GTM, and customer strategy." />
-  <link rel="preconnect" href="https://unpkg.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <style>
     :root {
       --orange: #F36B21;
@@ -219,10 +217,6 @@
       justify-content: center;
     }
 
-    /* Improve mobile scrolling behavior */
-    html, body { -webkit-overflow-scrolling: touch; }
-    .agent-embed-wrapper, elevenlabs-convai { touch-action: manipulation; }
-
     footer {
       border-top: 2px solid var(--black);
       padding-top: 16px;
@@ -297,15 +291,8 @@
           <a href="mailto:dsmith882@gmail.com" class="btn btn-secondary">Send me an email</a>
         </div>
        
-    <section class="agent-section" id="agent">
-      <h2 class="agent-heading">Start a conversation</h2>
-      <p class="agent-caption">Chat with the voice agent below.</p>
-      <div class="agent-embed-wrapper">
-        <elevenlabs-convai agent-id="agent_0701kc52rnwyfcjtg4nxnyvctdbt"></elevenlabs-convai>
-      </div>
-    </section>
-
-    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed@beta" async type="text/javascript"></script>
+    <elevenlabs-convai agent-id="agent_0701kc52rnwyfcjtg4nxnyvctdbt"></elevenlabs-convai>
+    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 
     <footer id="social">
       <div class="social-links">
