@@ -297,52 +297,15 @@
           <a href="mailto:dsmith882@gmail.com" class="btn btn-secondary">Send me an email</a>
         </div>
        
-    <elevenlabs-convai agent-id="agent_0701kc52rnwyfcjtg4nxnyvctdbt"></elevenlabs-convai>
+    <section class="agent-section" id="agent">
+      <h2 class="agent-heading">Start a conversation</h2>
+      <p class="agent-caption">Chat with the voice agent below.</p>
+      <div class="agent-embed-wrapper">
+        <elevenlabs-convai agent-id="agent_0701kc52rnwyfcjtg4nxnyvctdbt"></elevenlabs-convai>
+      </div>
+    </section>
 
-    <!-- Lazy-load ElevenLabs widget: loads when the agent section becomes visible or user interacts -->
-    <script>
-      (function(){
-        const WIDGET_SRC = 'https://unpkg.com/@elevenlabs/convai-widget-embed@beta';
-        let loaded = false;
-        function loadWidget(){
-          if(loaded) return; loaded = true;
-          const s = document.createElement('script');
-          s.src = WIDGET_SRC;
-          s.async = true;
-          s.onload = function(){ console.info('ElevenLabs widget loaded'); };
-          s.onerror = function(){ console.warn('Failed to load ElevenLabs widget'); };
-          document.body.appendChild(s);
-        }
-
-        // Load on user interaction (click/touch) near the widget area
-        document.addEventListener('click', function(e){
-          if (e.target.closest('.agent-section') || e.target.closest('elevenlabs-convai') || e.target.closest('.agent-embed-wrapper')) {
-            loadWidget();
-          }
-        }, {passive:true});
-
-        // IntersectionObserver: load when agent-section comes into view (or near viewport)
-        const el = document.querySelector('.agent-section');
-        if (el && 'IntersectionObserver' in window) {
-          try{
-            const io = new IntersectionObserver((entries, obs) => {
-              if (entries[0].isIntersecting) { loadWidget(); obs.disconnect(); }
-            }, { rootMargin: '300px' });
-            io.observe(el);
-          }catch(e){ /* ignore */ }
-        }
-
-        // As a last resort, load after idle time on non-mobile to improve likelihood widget works
-        function isMobile(){ return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent); }
-        if (!isMobile()){
-          if ('requestIdleCallback' in window) {
-            requestIdleCallback(function(){ if(!loaded) loadWidget(); }, {timeout: 3000});
-          } else {
-            setTimeout(function(){ if(!loaded) loadWidget(); }, 3500);
-          }
-        }
-      })();
-    </script>
+    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed@beta" async type="text/javascript"></script>
 
     <footer id="social">
       <div class="social-links">
