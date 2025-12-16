@@ -50,6 +50,8 @@
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      width: 100%;
+      text-align: center;
     }
 
     .header-meta {
@@ -92,8 +94,9 @@
 
     .hero-subtitle {
       font-size: 17px;
-      margin: 0 0 16px;
+      margin: 0 auto 16px;
       max-width: 620px;
+      font-weight: 450;
     }
 
     .hero-meta {
@@ -103,11 +106,23 @@
       margin: 0 0 22px;
     }
 
+    /* Center hero content for better balance */
+    .hero-heading,
+    .hero-subtitle,
+    .hero-meta {
+      text-align: center;
+    }
+
     .primary-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 20px;
+      gap: 18px;
+      margin: 18px 0 12px;
+      justify-content: center;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .btn {
@@ -128,6 +143,18 @@
 
     .btn-primary { background: var(--orange); color: var(--black); }
     .btn-secondary { background: var(--off-white); color: var(--black); }
+
+    /* Ensure buttons in the footer are evenly sized */
+    .primary-actions .btn {
+      flex: 1 1 180px;
+      min-width: 140px;
+      max-width: 260px;
+      text-align: center;
+    }
+
+    /* LinkedIn style */
+    .btn-linkedin { background: #0077B5; color: #ffffff; border-color: rgba(0,0,0,0.9); }
+    .btn-linkedin:hover { filter: brightness(0.95); }
 
     .hero-footnote {
       font-size: 12px;
@@ -172,6 +199,8 @@
       background: #fff;
       display: grid;
       gap: 10px;
+      max-width: 640px;
+      margin: 0 auto;
     }
 
     .meta-label {
@@ -179,15 +208,19 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
       font-weight: 700;
+      text-align: center;
     }
 
     .meta-list {
-      margin: 0;
-      padding-left: 18px;
-      display: grid;
-      gap: 6px;
+      list-style: none;
+      margin: 0 auto;
+      padding-left: 0;
       font-size: 14px;
+      width: fit-content; /* center the list block */
+      text-align: center;   /* center items */
     }
+
+    .meta-list li { margin-bottom: 6px; }
 
     .agent-section {
       border: 2px solid var(--black);
@@ -221,12 +254,25 @@
       border-top: 2px solid var(--black);
       padding-top: 16px;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
       gap: 12px;
       font-size: 13px;
       letter-spacing: 0.02em;
+    }
+
+    /* Constrain footer content to match .page width */
+    .footer-inner {
+      width: 100%;
+      max-width: 950px;
+      padding: 0 12px;
+      box-sizing: border-box;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
     }
 
     .social-links {
@@ -261,14 +307,13 @@
   <div class="page">
     <header>
       <div class="wordmark">Dan Smith - For your Consideration</div>
-      <div class="header-meta">AI VOICE CLONE • Resume • About </div>
     </header>
 
     <main>
       <section>
-        <h1 class="hero-heading">Interview an AI <span>voice version of Dan</span>.</h1>
+        <h1 class="hero-heading">Interview Dan's <span id="start-convai">AI voice agent</span></h1>
         <p class="hero-subtitle">
-          Use the floating widget below to chat with my digital clone. It's loaded up with a few stories about my career and sabbatical.
+          Click on the floating widget in the corner of your screen to get started!
         </p>
        
  
@@ -277,31 +322,59 @@
 
       <aside>
         <section class="meta-card">
-          <div class="meta-label">Some topics for our Chat:</div>
+          <div class="meta-label">Try some of the following prompts to learn about me:</div>
           <ul class="meta-list">
-            <li>How I built the scaled customer success program at Dovetail</li>
-            <li>My work renegotiating contracts at scale</li>
-            <li>How I developed a pricing strategy for sports teams selling their social media assets</li>
-            <li>My Thru-Hike of the Appalachain Trail</li>
+            <li>"Give me an overview of Dan's career"</li>
+            <li>"Tell me a story from Dan's work at Dovetail</li>
+            <li>"Share a reference from one of Dan's colleagues"</li>
+            <li>"Book time on the real Dan's calendar"</li>
           </ul>
         </section>
            </section>
-       <div class="primary-actions">
-          <a href="resume.html" class="btn btn-primary">See my resume</a>
-          <a href="mailto:dsmith882@gmail.com" class="btn btn-secondary">Send me an email</a>
-        </div>
-       
+        <p class="hero-subtitle">The best teammates aren't satisfied with out of the box AI solutions.<br>They build their own.</p>
+
     <elevenlabs-convai agent-id="agent_0701kc52rnwyfcjtg4nxnyvctdbt"></elevenlabs-convai>
     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 
+    <script>
+      (function () {
+        const trigger = document.getElementById('start-convai');
+        function openConvai() {
+          const el = document.querySelector('elevenlabs-convai');
+          if (!el) return;
+          if (typeof el.open === 'function') return el.open();
+          if (typeof el.show === 'function') return el.show();
+          if (typeof el.start === 'function') return el.start();
+          if (typeof el.toggle === 'function') return el.toggle();
+          try {
+            const btn = el.querySelector('button, [role="button"], .start, .toggle');
+            if (btn) return btn.click();
+          } catch (e) {}
+          el.dispatchEvent(new CustomEvent('open', { bubbles: true }));
+          el.dispatchEvent(new CustomEvent('activate', { bubbles: true }));
+          el.dispatchEvent(new CustomEvent('start', { bubbles: true }));
+          el.focus && el.focus();
+        }
+        if (trigger) {
+          trigger.style.cursor = 'pointer';
+          trigger.setAttribute('role', 'button');
+          trigger.setAttribute('tabindex', '0');
+          trigger.addEventListener('click', openConvai);
+          trigger.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openConvai(); } });
+        }
+      })();
+    </script>
+
     <footer id="social">
-      <div class="social-links">
-        <a href="https://www.linkedin.com/in/danhsmith/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://www.goodreads.com/user/show/109297588-dan-smith" target="_blank" rel="noopener noreferrer">Goodreads</a>
-        <a href="mailto:dsmith882@gmail.com">Email</a>
-      </div>
-      <div class="disclosure">
-        This page is for hosting an experimental voice agent I'm working on. I've done my best to prompt the AI for accuracy, but don't go quoting my virtual twin here!
+      <div class="footer-inner">
+        <div class="primary-actions">
+          <a href="resume.html" class="btn btn-primary">See my resume</a>
+          <a href="mailto:dsmith882@gmail.com" class="btn btn-secondary">Send me an email</a>
+          <a href="https://www.linkedin.com/in/danhsmith/" class="btn btn-linkedin" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
+        </div>
+        <div class="disclosure">
+          This page is for hosting an experimental voice agent I'm working on. I've done my best to prompt the AI for accuracy, but don't go quoting my virtual twin here!
+        </div>
       </div>
     </footer>
   </div>
