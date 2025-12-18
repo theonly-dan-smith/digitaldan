@@ -38,27 +38,14 @@
       gap: 24px;
     }
 
-    header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-    }
+    header { text-align: center; }
 
     .wordmark {
       font-size: 20px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      width: 100%;
-      text-align: center;
-    }
-
-    .header-meta {
-      font-size: 12px;
-      text-align: right;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      margin: 0;
     }
 
     main {
@@ -70,11 +57,6 @@
 
     @media (min-width: 1400px) {
       main { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 28px; }
-    }
-
-    @media (max-width: 640px) {
-      header { flex-direction: column; align-items: flex-start; }
-      .header-meta { text-align: left; }
     }
 
     .hero-heading {
@@ -106,23 +88,18 @@
       margin: 0 0 22px;
     }
 
-    /* Center hero content for better balance */
     .hero-heading,
     .hero-subtitle,
-    .hero-meta {
-      text-align: center;
-    }
+    .hero-meta { text-align: center; }
 
     .primary-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 18px;
-      margin: 18px 0 12px;
+      margin: 18px auto 12px;
       justify-content: center;
       width: 100%;
       max-width: 760px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     .btn {
@@ -144,16 +121,13 @@
     .btn-primary { background: var(--orange); color: var(--black); }
     .btn-secondary { background: var(--off-white); color: var(--black); }
 
-    /* Ensure buttons in the footer are evenly sized */
     .primary-actions .btn {
-      flex: 1 1 180px;
+      flex: 1 1 140px;
       min-width: 140px;
       max-width: 260px;
-      text-align: center;
     }
 
-    /* LinkedIn style */
-    .btn-linkedin { background: #0077B5; color: #ffffff; border-color: rgba(0,0,0,0.9); }
+    .btn-linkedin { background: #0077B5; color: #fff; border-color: rgba(0,0,0,0.9); }
     .btn-linkedin:hover { filter: brightness(0.95); }
 
     .hero-footnote {
@@ -161,37 +135,6 @@
       max-width: 520px;
       letter-spacing: 0.02em;
     }
-
-    .geo-panel {
-      margin-top: 18px;
-      border: 2px solid var(--black);
-      background: #fff;
-      padding: 18px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      align-items: center;
-    }
-
-    .geo-panel .circle {
-      width: 90%;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background: var(--ultra);
-      justify-self: center;
-    }
-
-    .geo-panel .bar { height: 14px; background: var(--orange); }
-
-    .geo-panel .stack { display: grid; gap: 6px; }
-    .geo-panel .stack .bar { height: 10px; }
-    .geo-panel .stack .bar:nth-child(1) { background: var(--teal); }
-    .geo-panel .stack .bar:nth-child(2) { background: var(--pink); }
-    .geo-panel .stack .bar:nth-child(3) { background: var(--yellow); }
-
-    .geo-panel .column { display: grid; gap: 8px; }
-    .geo-panel .column .block { height: 24px; background: var(--deep-orange); }
-    .geo-panel .column .block:nth-child(2) { background: var(--cyan); }
 
     .meta-card {
       border: 2px solid var(--black);
@@ -214,41 +157,12 @@
     .meta-list {
       list-style: none;
       margin: 0 auto;
-      padding-left: 0;
+      padding: 0;
       font-size: 14px;
-      width: fit-content; /* center the list block */
-      text-align: center;   /* center items */
+      text-align: center;
     }
 
     .meta-list li { margin-bottom: 6px; }
-
-    .agent-section {
-      border: 2px solid var(--black);
-      padding: 22px 20px;
-      background: #fff;
-      display: grid;
-      gap: 10px;
-    }
-
-    .agent-heading {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .agent-caption { margin: 0; font-size: 13px; max-width: 580px; }
-
-    .agent-embed-wrapper {
-      border: 1px solid var(--black);
-      padding: 12px;
-      min-height: 140px;
-      background: linear-gradient(135deg, var(--off-white), #ffffff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
 
     footer {
       border-top: 2px solid var(--black);
@@ -261,14 +175,12 @@
       letter-spacing: 0.02em;
     }
 
-    /* Constrain footer content to match .page width */
     .footer-inner {
       width: 100%;
       max-width: 950px;
       padding: 0 12px;
       box-sizing: border-box;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -301,26 +213,19 @@
       text-align: center;
       font-size: 12px;
     }
-
-
   </style>
 </head>
 <body>
   <div class="page">
     <header>
-      <div class="wordmark">Dan Smith - For your Consideration</div>
+      <h1 class="wordmark">Dan Smith - For your Consideration</h1>
     </header>
 
     <main>
       <section>
-        <h1 class="hero-heading">Interview Dan's <span id="start-convai">AI voice agent</span></h1>
-        <p class="hero-subtitle">
-          Click on the floating widget in the corner of your screen to get started!
-        </p>
-       
- 
-
-   
+        <h2 class="hero-heading">Interview Dan's <span id="convai-trigger">AI voice agent</span></h2>
+        <p class="hero-subtitle">Click on the floating widget in the corner of your screen to get started!</p>
+      </section>
 
       <aside>
         <section class="meta-card">
@@ -332,53 +237,39 @@
             <li>"Book time on the real Dan's calendar"</li>
           </ul>
         </section>
-           </section>
         <p class="hero-subtitle">The best teammates aren't satisfied with out of the box AI solutions.<br>They build their own.</p>
-
-    <elevenlabs-convai agent-id="agent_0701kc52rnwyfcjtg4nxnyvctdbt"></elevenlabs-convai>
+        <elevenlabs-convai agent-id="agent_0701kc52rnwyfcjtg4nxnyvctdbt"></elevenlabs-convai>
+      </aside>
+    </main>
 
     <script>
       (function () {
-        const trigger = document.getElementById('start-convai');
         let convaiLoaded = false;
-        function loadConvaiLib(cb) {
-          if (convaiLoaded || window.__convaiWidgetLoading) return cb && cb();
-          if (window.convaiWidgetLoaded) { convaiLoaded = true; return cb && cb(); }
-          const s = document.createElement('script');
-          s.src = 'https://unpkg.com/@elevenlabs/convai-widget-embed';
-          s.async = true;
-          window.__convaiWidgetLoading = true;
-          s.onload = function() { convaiLoaded = true; window.__convaiWidgetLoading = false; cb && cb(); };
-          s.onerror = function() { window.__convaiWidgetLoading = false; cb && cb(); };
-          document.head.appendChild(s);
+
+        function loadConvai() {
+          if (convaiLoaded || window.__convaiLoading) return;
+          window.__convaiLoading = true;
+
+          const script = document.createElement('script');
+          script.src = 'https://unpkg.com/@elevenlabs/convai-widget-embed';
+          script.async = true;
+          script.onload = () => { convaiLoaded = true; };
+          document.head.appendChild(script);
         }
-        function openConvai() {
-          const el = document.querySelector('elevenlabs-convai');
-          if (!el) return;
-          if (typeof el.open === 'function') return el.open();
-          if (typeof el.show === 'function') return el.show();
-          if (typeof el.start === 'function') return el.start();
-          if (typeof el.toggle === 'function') return el.toggle();
-          try {
-            const btn = el.querySelector('button, [role="button"], .start, .toggle');
-            if (btn) return btn.click();
-          } catch (e) {}
-          el.dispatchEvent(new CustomEvent('open', { bubbles: true }));
-          el.dispatchEvent(new CustomEvent('activate', { bubbles: true }));
-          el.dispatchEvent(new CustomEvent('start', { bubbles: true }));
-          el.focus && el.focus();
-        }
+
+        // Auto-load on page load
+        document.addEventListener('DOMContentLoaded', loadConvai);
+
+        // Allow manual trigger via click
+        const trigger = document.getElementById('convai-trigger');
         if (trigger) {
           trigger.style.cursor = 'pointer';
-          trigger.setAttribute('role', 'button');
-          trigger.setAttribute('tabindex', '0');
-          trigger.addEventListener('click', function() { loadConvaiLib(openConvai); });
-          trigger.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadConvaiLib(openConvai); } });
+          trigger.addEventListener('click', loadConvai);
         }
       })();
     </script>
 
-    <footer id="social">
+    <footer>
       <div class="footer-inner">
         <div class="primary-actions">
           <a href="resume.html" class="btn btn-primary">See my resume</a>
